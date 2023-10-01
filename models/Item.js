@@ -27,13 +27,12 @@ const ItemSchema = new mongoose.Schema({
     },
     label: {
         type: String,
+        default: "NONE"
     },
-    images: [
-        {
-            data: Buffer,
-            contentType: String
-        }
-    ]
+    imagePaths: {
+        type: [String],
+        required: true
+    }
 }, {
     timestamps: true,
 });
