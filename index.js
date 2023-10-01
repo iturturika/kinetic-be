@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from 'cors';
 
 import { register, login, getUser } from "./controllers/UserController.js";
 import { addItem, deleteItem, getAll, getItem, updateItem } from "./controllers/ItemController.js";
@@ -22,6 +23,13 @@ app.use(express.json()); // дает возможность работать с 
 
 app.use('/uploads', express.static('uploads'));
 
+const corsOptions = {
+    origin: 'http://localhost:3000/',
+    optionsSuccessStatus: 200,
+  };
+  
+app.use(cors(corsOptions));
+
 // Указываем место для сохранения загруженных файлов
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
@@ -30,7 +38,7 @@ const storage = multer.diskStorage({
     filename: (_, file, cb) => {
         cb(null, file.originalname); // Здесь 'uploads/' - это папка, куда будут сохраняться загруженные файлы
       },
-  });
+});
   
 const upload = multer({ storage: storage });
 
