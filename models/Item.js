@@ -32,6 +32,10 @@ const ItemSchema = new mongoose.Schema({
     imagePaths: {
         type: [String],
         required: true
+    },
+    status: {
+        type: String,
+        default: 'WAITING'
     }
 }, {
     timestamps: true,

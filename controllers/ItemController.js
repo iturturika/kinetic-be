@@ -96,8 +96,9 @@ export const getAll = async (req, res) => {
 
         const searchParams = [
             {title: { $regex: req.query.title, $options: 'i' }},
-            {categories: req.query.categories},
-            {label: req.query.label},
+            {categories: { $regex: req.query.categories }},
+            {label: { $regex: req.query.label }},
+            {status: { $regex: req.query.status }},
         ];
 
         const item = await ItemModel.find({ $or: searchParams });
