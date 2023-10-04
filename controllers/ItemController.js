@@ -93,15 +93,22 @@ export const getItem = async (req, res) => {
 
 export const getAll = async (req, res) => {
     try {
+        let searchParams;
+        if(req.query.title === '', req.query.categories === '', req.query.label === '', req.query.status === ''){
+            searchParams = {}
+        } else {
+            searchParams = {
+                $or: [
+                    { title: req.query.title },
+                    { categories: req.query.categories },
+                    { label: req.query.label },
+                    { status: req.query.status },
+                ],
+            };
+        }
+        
 
-        const searchParams = [
-            {title: { $regex: req.query.title, $options: 'i' }},
-            {categories: { $regex: req.query.categories }},
-            {label: { $regex: req.query.label }},
-            {status: { $regex: req.query.status }},
-        ];
-
-        const item = await ItemModel.find({ $or: searchParams });
+        const item = await ItemModel.find(searchParams);
 
         if(!item) {
             return res.status(404).json({
@@ -132,7 +139,7 @@ export const updateItem = async (req, res) => {
             instagramUrl: req.body.instagramUrl,
             categories: req.body.categories,
             label: req.body.label,
-            imagePaths: req.files.map(file => file.path)
+            status: req.body.status
         });
 
         res.json({
