@@ -94,17 +94,14 @@ export const getItem = async (req, res) => {
 export const getAll = async (req, res) => {
     try {
         let searchParams;
-        if(req.query.title === '', req.query.categories === '', req.query.label === '', req.query.status === ''){
-            searchParams = {}
-        } else {
-            searchParams = {
-                $or: [
-                    { title: req.query.title },
-                    { categories: req.query.categories },
-                    { label: req.query.label },
-                    { status: req.query.status },
-                ],
-            };
+        if((req.query.title).length > 0 && (req.query.status).length > 0){
+            searchParams = {title: { $regex: req.query.title, $options: 'i' }, status: req.query.status};
+        } else if ((req.query.categories).length > 0 && (req.query.status).length > 0) {
+            searchParams = {categories: req.query.categories, status: req.query.status};
+        } else if ((req.query.categories).length > 0 && (req.query.status).length > 0 && (req.query.title).length > 0){
+            searchParams = {title: { $regex: req.query.title, $options: 'i' }, categories: req.query.categories, status: req.query.status};
+        } else if ((req.query.status).length > 0){
+            searchParams = {status: req.query.status};
         }
         
 
