@@ -40,8 +40,6 @@ function deleteImages(imagePaths) {
       fs.unlink(imagePath, (err) => {
         if (err) {
           console.error(err);
-        } else {
-          console.log(`Изображение ${imagePath} удалено успешно`);
         }
       });
     });
@@ -94,15 +92,38 @@ export const getItem = async (req, res) => {
 export const getAll = async (req, res) => {
     try {
         let searchParams;
-        if((req.query.title).length > 0 && (req.query.status).length > 0){
-            searchParams = {title: { $regex: req.query.title, $options: 'i' }, status: req.query.status};
-        } else if ((req.query.categories).length > 0 && (req.query.status).length > 0) {
-            searchParams = {categories: req.query.categories, status: req.query.status};
-        } else if ((req.query.categories).length > 0 && (req.query.status).length > 0 && (req.query.title).length > 0){
-            searchParams = {title: { $regex: req.query.title, $options: 'i' }, categories: req.query.categories, status: req.query.status};
-        } else if ((req.query.status).length > 0){
+
+        if ((req.query.status).length > 0){
             searchParams = {status: req.query.status};
+        } 
+        
+        if ((req.query.categories).length > 0 && (req.query.status).length > 0) {
+            searchParams = {
+                $and: [
+                    {categories: req.query.categories}, 
+                    {status: req.query.status}
+                ]
+            }
+        } 
+
+        if((req.query.title).length > 0 && (req.query.status).length > 0){
+            searchParams = {
+                $and: [
+                    {title: { $regex: req.query.title, $options: 'i' }}, 
+                    {status: req.query.status}
+                ]
+            }
         }
+        if ((req.query.categories).length > 0 && (req.query.status).length > 0 && (req.query.title).length > 0){
+            searchParams = {
+                $and: [
+                    {title: { $regex: req.query.title, $options: 'i' }},
+                    {categories: req.query.categories}, 
+                    {status: req.query.status}
+                ]
+            }
+        }
+
         
 
         const item = await ItemModel.find(searchParams);

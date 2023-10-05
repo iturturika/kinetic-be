@@ -57,13 +57,13 @@ app.get('/auth/me', checkAuth, getUser);
 
 app.post('/items', upload.array('images', 4), itemValidation, addItem);
 
-app.delete('/items/:id', deleteItem);
+app.delete('/items/:id', checkAuth, deleteItem);
 
 app.get('/items/:id', getItem);
 
 app.get('/items', getAll);
 
-app.patch('/items/:id', upload.array('images', 4), itemValidation, updateItem);
+app.patch('/items/:id', checkAuth, upload.array('images', 4), itemValidation, updateItem);
 
 app.listen(4444, (err) => {
     if(err){
