@@ -21,7 +21,7 @@ mongoose.connect(
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'http://31.129.111.5:3000',
     optionsSuccessStatus: 200,
   };
   
