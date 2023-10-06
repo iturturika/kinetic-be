@@ -126,7 +126,7 @@ export const getAll = async (req, res) => {
 
         
 
-        const item = await ItemModel.find(searchParams);
+        const item = await ItemModel.find(searchParams).sort({ priority: 1 });
 
         if(!item) {
             return res.status(404).json({
@@ -157,7 +157,8 @@ export const updateItem = async (req, res) => {
             instagramUrl: req.body.instagramUrl,
             categories: req.body.categories,
             label: req.body.label,
-            status: req.body.status
+            status: req.body.status,
+            priority: req.body.priority
         });
 
         res.json({

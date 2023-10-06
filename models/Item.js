@@ -36,6 +36,10 @@ const ItemSchema = new mongoose.Schema({
     status: {
         type: String,
         default: 'WAITING'
+    },
+    priority: {
+        type: Number,
+        default: 100
     }
 }, {
     timestamps: true,
