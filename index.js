@@ -21,7 +21,7 @@ mongoose.connect(
 const app = express();
 
 const corsOptions = {
-    origin: 'http://kineticstore.online',
+    origin: 'https://kineticstore.online',
     optionsSuccessStatus: 200,
   };
   
