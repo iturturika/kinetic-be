@@ -65,7 +65,7 @@ app.get('/items', getAll);
 
 app.patch('/items/:id', checkAuth, upload.array('images', 4), itemValidation, updateItem);
 
-app.listen(4444, (err) => {
+app.listen(3000, (err) => {
     if(err){
         return console.log(err);
     } else {
