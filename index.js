@@ -11,7 +11,7 @@ import { itemValidation } from "./validations/itemValidation.js";
 import multer from "multer";
 
 mongoose.connect(
-    process.env.DBCONNECT
+    'mongodb+srv://kinetic:Iturturika-89@kinetic.knfb8wc.mongodb.net/kineticDB?retryWrites=true&w=majority'
 ).then(() => {
     console.log('DB Connected');
 }).catch((err) => {
@@ -65,7 +65,7 @@ app.get('/items', getAll);
 
 app.patch('/items/:id', checkAuth, upload.array('images', 4), itemValidation, updateItem);
 
-app.listen(process.env.PORT, (err) => {
+app.listen(80, (err) => {
     if(err){
         return console.log(err);
     } else {
