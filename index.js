@@ -65,11 +65,11 @@ app.get('/items', getAll);
 
 app.patch('/items/:id', checkAuth, upload.array('images', 4), itemValidation, updateItem);
 
-app.listen(443, (err) => {
+app.listen(8080, (err) => {
     if(err){
         return console.log(err);
     } else {
-        return console.log('Ok');
+        return console.log('Ok, server started at port = ' + 8080);
     }
 });
 
