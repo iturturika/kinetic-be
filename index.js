@@ -9,6 +9,8 @@ import {registerValidation} from './validations/auth.js';
 import checkAuth from "./utils/checkAuth.js";
 import { itemValidation } from "./validations/itemValidation.js";
 import multer from "multer";
+import { Participate, getCountOfParticipants, getRandomParticipant } from "./controllers/ParticipantController.js";
+import { participantValidate } from "./validations/participantValidation.js";
 
 mongoose.connect(
     'mongodb+srv://kinetic:Iturturika-89@kinetic.knfb8wc.mongodb.net/kineticDB?retryWrites=true&w=majority'
@@ -26,6 +28,7 @@ const corsOptions = {
   };
   
 app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json()); // дает возможность работать с json
 
@@ -64,6 +67,13 @@ app.get('/items/:id', getItem);
 app.get('/items', getAll);
 
 app.patch('/items/:id', checkAuth, upload.array('images', 4), itemValidation, updateItem);
+
+app.post('/participants', participantValidate, Participate);
+
+
+app.get('/random-participant', checkAuth, getRandomParticipant);
+
+app.get('/count', getCountOfParticipants);
 
 app.listen(8080, (err) => {
     if(err){
