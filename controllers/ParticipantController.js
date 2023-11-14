@@ -17,7 +17,6 @@ export const Participate = async (req, res) => {
         msg: 'Готово, вы участвуете!'
     });
     } catch (err) {
-      console.log(err);
       res.status(500).json({
           msg: 'Не удалось поучаствовать'
       });
