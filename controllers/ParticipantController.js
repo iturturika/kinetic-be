@@ -29,7 +29,7 @@ export const Participate = async (req, res) => {
 export const getRandomParticipant = async (req, res) => {
     try {
         const totalDocuments = await ParticipantModel.countDocuments();
-        const randomSkip = Math.floor(Math.random() * (totalDocuments - 1));
+        const randomSkip = Math.floor(Math.random() * (totalDocuments));
     
         const randomObject = await ParticipantModel.findOne().skip(randomSkip);
         res.json(randomObject);
